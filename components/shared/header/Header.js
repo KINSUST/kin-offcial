@@ -50,6 +50,7 @@ export default function Header() {
   const handleLogout = async () => {
     const payload = await userLogout();
     if (payload?.data?.success) {
+      refetch()
       router.push("/login");
       Cookies.remove("accessToken");
       setUser(null);

@@ -68,7 +68,10 @@ export default function Profile() {
     }
   };
 
-  if (!user.id) {
+  console.log(user);
+  
+
+  if (!user?.id) {
     return <Loading />;
   }
 
