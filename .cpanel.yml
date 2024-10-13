@@ -1,0 +1,7 @@
+---
+deployment:
+      tasks:
+        - export DEPLOYPATH=/home/kinsusto/kinsust.org
+        - /bin/cp -r * $DEPLOYPATH
+        
+        
