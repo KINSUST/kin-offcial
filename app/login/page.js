@@ -38,6 +38,7 @@ export default function Login() {
       
       Cookies.set("accessToken", payload?.data?.data.accessToken, {
         expires: 365,
+        secure: true
       });
       router.push("/profile");
     } else if (!payload?.error?.data?.success) {
