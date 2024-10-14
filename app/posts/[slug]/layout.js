@@ -3,7 +3,9 @@ import { notFound } from "next/navigation";
 // Function to generate metadata for SEO purposes
 export async function generateMetadata({ params }) {
   const ApiURL = process.env.SERVER_URL;
-  const { post } = await getPost(params);
+  const { post:data } = await getPost(params);
+
+  const post =data?.data
 
   // Check for the existence of the post
   if (!post) {
