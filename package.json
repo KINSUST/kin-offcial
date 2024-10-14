@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "node server.js",
-    "lint": "next lint"
+    "start": "node server.js"
   },
   "dependencies": {
     "@codaworks/react-glow": "^1.0.6",
