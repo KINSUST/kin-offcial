@@ -6,7 +6,7 @@ export default function Blood() {
     <article className=" theme-dark    md:text-[20px] text-[18px] bg-[#fff] text-black  px-5 m-auto text-justify   py-5  ">
       <section className="xl:w-[1200px] mx-auto ">
         <h1 className=" px-4 font-bold text-2xl md:text-4xl mt-2 mb-4 dark:text-white text-center ">
-          Blood Donation
+          <span>Blood Donation</span>
         </h1>
         <section className="my-5">
           <p className="">
