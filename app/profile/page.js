@@ -1,6 +1,6 @@
 "use client";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Loading from "@/components/Loading";
 import PhotoChange from "./Components/PhotoChange";
@@ -9,9 +9,13 @@ import {
   useUpdateUserDataMutation,
 } from "@/lib/feature/auth/authApi";
 import EditProfile from "./Components/EditProfile";
+import { getLoggedInUser } from "../login/api";
 
 export default function Profile() {
-  const { data: { data: user = {} } = {} } = useLoggedInUserQuery();
+
+  const [user,setUser] = useState(null)
+
+  
 
   const [updatePassword] = useUpdateUserDataMutation();
 
@@ -68,12 +72,21 @@ export default function Profile() {
     }
   };
 
-  console.log(user);
-  
+
+  useEffect(() => {
+    (async()=>{
+      const data = await getLoggedInUser()
+      setUser(data)
+    })()
+  }, []);
 
   if (!user?.id) {
+    console.log(2);
+    
     return <Loading />;
   }
+
+
 
   return (
     <section className=" bg-[#fff]   px-5 m-auto text-justify  text-[17px] py-10  theme-dark">

@@ -3,6 +3,7 @@ import Link from "next/link";
 import PasswordShowHide from "../../components/login/PasswordShowHide";
 import {
   useAuthLoginMutation,
+  useLoggedInUserQuery,
   useResendActivationCodeMutation,
 } from "@/lib/feature/auth/authApi";
 import { toast } from "react-toastify";
@@ -13,6 +14,8 @@ import Cookies from "js-cookie";
 
 export default function Login() {
   const [userLogin, { isLoading }] = useAuthLoginMutation();
+  const {  refetch } =
+    useLoggedInUserQuery();
   const [resendCode] = useResendActivationCodeMutation();
 
   const [email, setEmail] = useState("");
@@ -33,7 +36,10 @@ export default function Login() {
     const payload = await userLogin(data);
 
     if (payload?.data?.success) {
+      refetch()
+      
       toast.success("Login Successfully!");
+      
       Cookies.set("accessToken", payload?.data?.data.accessToken, {
         expires: 365,
       });
@@ -50,7 +56,6 @@ export default function Login() {
   };
 
   // handleActiveAccount
-
   const handleActiveAccount = async () => {
     const payload = await resendCode({
       email: email,

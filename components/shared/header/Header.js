@@ -13,9 +13,10 @@ import {
 } from "@/lib/feature/auth/authApi";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
+import { getLoggedInUser } from "@/app/login/api";
 
 // // cached disable
-// export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 export default function Header() {
   const router = useRouter();
@@ -23,10 +24,14 @@ export default function Header() {
   const pathname = usePathname();
   const { data, refetch, currentData, isError, isSuccess } =
     useLoggedInUserQuery();
+    
 
   const [userLogout] = useAuthLogoutMutation();
 
-  const [user, setUser] = useState(data?.data || null);
+  const [user, setUser] = useState(null);
+
+
+  
 
   // navbar close
   const { isOpen, toggleMenu, dropDownRef } = usePopupControl();
@@ -49,8 +54,9 @@ export default function Header() {
   // handle logout
   const handleLogout = async () => {
     const payload = await userLogout();
+    refetch()
     if (payload?.data?.success) {
-      refetch()
+      
       router.push("/login");
       Cookies.remove("accessToken");
       setUser(null);
@@ -61,10 +67,14 @@ export default function Header() {
   };
 
   useEffect(() => {
-    if (data?.data) {
-      setUser(data.data);
-    }
-  }, [data]);
+    (async()=>{
+      const data = await getLoggedInUser()
+      setUser(data)
+      
+    })()
+
+
+  }, []);
 
   const dropDownMenuRef = useRef(null);
 
