@@ -11,11 +11,9 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import SmallLoader from "@/components/SmallLoader";
 import Cookies from "js-cookie";
-
 export default function Login() {
   const [userLogin, { isLoading }] = useAuthLoginMutation();
-  const {  refetch } =
-    useLoggedInUserQuery();
+
   const [resendCode] = useResendActivationCodeMutation();
 
   const [email, setEmail] = useState("");
@@ -36,8 +34,6 @@ export default function Login() {
     const payload = await userLogin(data);
 
     if (payload?.data?.success) {
-      refetch()
-      
       toast.success("Login Successfully!");
       
       Cookies.set("accessToken", payload?.data?.data.accessToken, {

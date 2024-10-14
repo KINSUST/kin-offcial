@@ -10,10 +10,13 @@ import {
 } from "@/lib/feature/auth/authApi";
 import EditProfile from "./Components/EditProfile";
 import { getLoggedInUser } from "../login/api";
+import { useSelector } from "react-redux";
 
 export default function Profile() {
 
-  const [user,setUser] = useState(null)
+  const {user:userData} = useSelector((state) => state.auth);
+
+  const user = userData?.data || null
 
   
 
@@ -73,16 +76,7 @@ export default function Profile() {
   };
 
 
-  useEffect(() => {
-    (async()=>{
-      const data = await getLoggedInUser()
-      setUser(data)
-    })()
-  }, []);
-
   if (!user?.id) {
-    console.log(2);
-    
     return <Loading />;
   }
 
