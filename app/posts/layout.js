@@ -2,6 +2,7 @@
 export const metadata = {
   metadataBase: new URL(process.env.SERVER_URL),
   title: "KIN Posts ",
+  // description: "KIN Posts Distribution",
   description: "KIN Posts Distribution",
 
   openGraph: {
