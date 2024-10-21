@@ -7,10 +7,13 @@ import Loading from "../../../components/Loading";
 export default function ExecutiveCommittee() {
   const { data: { data: ecs = [] } = {}, isLoading } = useAllEcQuery();
 
+  console.log(ecs);
+  
+
   const [ec, setEc] = useState(null);
 
   const { data: { data: ecData } = {} } = useGetEcByIdQuery(
-    ecs[ecs?.length - 1]?.id
+    ecs[0]?.id
   );
 
   // ecs data
